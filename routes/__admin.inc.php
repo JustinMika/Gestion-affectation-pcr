@@ -22,7 +22,7 @@ Route::get('/', function () {
     ];
 
     // Obtenir les données des patients par mois
-    $patientsData = LeaveRequest::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
+    $patientsData = \App\Models\Affectation::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
         ->groupBy('month')
         ->pluck('count', 'month')
         ->toArray();
@@ -34,10 +34,10 @@ Route::get('/', function () {
 
     return view('admin.index', [
         'patient' => 0,
-        'present_to_day' => count(Attendance::where('date', '=', date("Y-m-d"))->get()),
+        'present_to_day' => count(\App\Models\Affectation::where('created_at', '=', date("Y-m-d"))->get()),
         'user' => count(\App\Models\User::get()),
-        'conges' => count(\App\Models\LeaveRequest::where('status', '=', 'approved')->get()),
-        'conges_' => count(\App\Models\LeaveRequest::where('status', '=', 'pending')->get()),
+        'conges' => count([]),
+        'conges_' => count([]),
         'patientsPerMonth' => $patientsPerMonth
     ]);
 })->name('Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY');

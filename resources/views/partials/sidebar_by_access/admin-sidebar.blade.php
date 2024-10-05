@@ -16,7 +16,7 @@
 <li class="_hidden_">
     <button type="button"
             class="flex items-center w-full p-2 text-sm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-            aria-controls="domaine_" data-collapse-toggle="domaine_">
+            aria-controls="gestion_pcr" data-collapse-toggle="gestion_pcr">
         <svg data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor"
              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">
@@ -31,7 +31,7 @@
                   clip-rule="evenodd"></path>
         </svg>
     </button>
-    <ul id="domaine_" class="space-y-2 py-2 hidden ">
+    <ul id="gestion_pcr" class="space-y-2 py-2 hidden ">
         <li>
             <a href=" {{ url("Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/administration/users") }}"
                class=" text-sm text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Ajouter

@@ -12,7 +12,7 @@
     </a>
 </li>
 
-{{-- Gestion des employés --}}
+{{-- Gestion des employés PCR--}}
 <li>
     <button type="button"
             class="flex items-center w-full p-2 text-sm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
@@ -66,14 +66,13 @@
     </button>
     <ul id="_menu_gl" class="space-y-2 py-2 hidden ">
         <li>
-            <a href=" {{ url("Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/administration/users") }}"
+            <a href=" {{ url('Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/lieu-affectation/add') }}"
                class=" text-sm text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Ajouter
                 un nouveau lieu d'affectation</a>
         </li>
         <li>
-            <a href=" {{ url("Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/administration/gestion-users") }}"
-               class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Modifier
-                ou supprimer un lieu</a>
+            <a href=" {{ url('Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/lieu-affectation/list') }}"
+               class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Liste</a>
         </li>
     </ul>
 </li>
@@ -99,12 +98,12 @@
     </button>
     <ul id="affectation_agents" class="space-y-2 py-2 hidden ">
         <li>
-            <a href=" {{ url("Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/administration/users") }}"
+            <a href=" {{ route('affectations.affecter-agents') }}"
                class=" text-sm text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Affecter
                 un agent à un lieu</a>
         </li>
         <li>
-            <a href=" {{ url("Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY/administration/gestion-users") }}"
+            <a href=" {{ route('affectations.list-affectations') }}"
                class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Voir
                 les affectations existantes</a>
         </li>
@@ -132,19 +131,14 @@
     </button>
     <ul id="rapport_" class="space-y-2 py-2 hidden ">
         <li>
-            <a href="{{ route('rapport.list_agents') }}"
+            <a href="{{ route('rapport.list_agents_prcs') }}"
                class=" text-sm text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Liste
                 des PCR</a>
         </li>
         <li>
-            <a href="{{ route('rapport.rapport_presence')  }}"
+            <a href="{{ route('rapport.affectations')  }}"
                class=" text-sm text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Rapport
                 des affectations</a>
-        </li>
-        <li>
-            <a href=" {{ route('rapport.agent_en_conges')  }}"
-               class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Agents
-                en conges</a>
         </li>
     </ul>
 </li>

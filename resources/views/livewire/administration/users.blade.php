@@ -64,11 +64,21 @@
                                  :label="'Telephone'"/>
                 </div>
 
-                <div class="w-full grid grid-cols-2 gap-2">
-                    <x-input-all :type="'password'" :name="'password'" :id="'password'" :placeholder="'Mot de passe'"
-                                 :label="'Mot de passe'"/>
-                    <x-input-all :type="'password'" :name="'confirm_password'" :id="'confirm_password'"
-                                 :placeholder="'Confirmer le mot de passe'" :label="'Confirmer le mot de passe'"/>
+                <div class="w-full">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lieu
+                        d'affectations</label>
+                    <select type="text" name="name" id="name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Rôle" required wire:model='role_id'>
+                        <option value="">--Lieu d'affectations--</option>
+                        @if(count($lien_affect) > 0)
+                            @foreach ($lien_affect as $r)
+                                <option value="{{ $r->id }}">{{ $r->lieu }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    @error('role_id')<span for="name"
+                                           class="block mb-2 text-sm font-medium text-red-700">{{ $message }}</span>@enderror
                 </div>
 
                 <div class="w-full">

@@ -2,7 +2,7 @@
 <html lang="fr" class="dark">
 
 <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-
+<meta charset="UTF-8"/>
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -76,8 +76,6 @@
         }
 
     </style>
-
-
     <style>
         * {
             font-family: "SUSE", sans-serif;
@@ -92,11 +90,9 @@
         } else {
             document.documentElement.classList.remove('dark')
         }
-
     </script>
     <link rel="stylesheet" href="{{ asset('cdn/css/sweetalert2.min.css') }}">
     <script src="{{ asset('cdn/js/sweetalert2@11.js') }}"></script>
-    <script src="{{ asset("cdn/js/html5-qrcode.min.js.js") }}"></script>
     @livewireStyles
 </head>
 

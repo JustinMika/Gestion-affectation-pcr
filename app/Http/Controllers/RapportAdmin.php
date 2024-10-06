@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Affectation;
 use App\Models\Attendance;
 use App\Models\LeaveRequest;
 use App\Models\User;
@@ -30,7 +31,7 @@ class RapportAdmin extends Controller
             $this->fpdf->cell(190, 1, "", 1, 1, 'C', true);
             $this->fpdf->SetFont('Arial', 'B', 12);
 
-            $this->fpdf->cell(190, 10, 'LISTE DES AGENTS : ', 0, 1, 'C');
+            $this->fpdf->cell(190, 10, 'LISTE DES PCR : ', 0, 1, 'C');
 
             $this->fpdf->Ln(1);
             $this->fpdf->SetFont('Arial', 'B', 10);
@@ -57,9 +58,10 @@ class RapportAdmin extends Controller
             throw $th;
         }
     }
-    public function rapportPresence()
+
+    public function affectations()
     {
-        $data = Attendance::with('employee')->orderBy('created_at', 'DESC')->get();
+        $data = Affectation::with(['user', 'lieuAffectation'])->get();
         try {
             $this->fpdf = new Fpdf('P', 'mm', 'A4');
             $this->fpdf->AddPage();
@@ -71,98 +73,20 @@ class RapportAdmin extends Controller
             $this->fpdf->cell(190, 1, "", 1, 1, 'C', true);
             $this->fpdf->SetFont('Arial', 'B', 12);
 
-            $this->fpdf->cell(190, 10, 'RAPPORT DE PRESENCE DES AGENTS: ', 0, 1, 'C');
+            $this->fpdf->cell(190, 10, "RAPPORT D'AFFECTATIONS DES AGENTS PCR ", 0, 1, 'C');
 
             $this->fpdf->Ln(1);
             $this->fpdf->SetFont('Arial', 'B', 10);
             $this->fpdf->cell(60, 6, "Noms", 1, 0, 'L');
-            $this->fpdf->cell(30, 6, "Date", 1, 0, 'L');
-            $this->fpdf->cell(30, 6, "Heure d'arriver", 1, 0, 'L');
-            $this->fpdf->cell(30, 6, "Heure de sortie", 1, 0, 'L');
+            $this->fpdf->cell(60, 6, "Lieu d'affectation", 1, 0, 'L');
+            $this->fpdf->cell(30, 6, "Date d'affectation", 1, 0, 'L');
             $this->fpdf->Ln(6);
             $this->fpdf->SetFont('Arial', '', 8);
 
             foreach ($data as $_d) {
-                $this->fpdf->Cell(60, 6, $_d->employee->name ?? '-', 1, 0, 'L');
-                $this->fpdf->Cell(30, 6, $_d->date ?? '0', 1, 0, 'L');
-                $this->fpdf->Cell(30, 6, $_d->check_in_time ?? 0, 1, 0, 'L');
-                $this->fpdf->Cell(30, 6, $_d->check_out_time ?? 0, 1, 0, 'L');
-                $this->fpdf->Ln(6);
-            }
-            $this->fpdf->Output();
-            exit;
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-    public function agentEnConges()
-    {
-        $data = LeaveRequest::with('employee')->where('status', 'approved')->orderBy('created_at', 'DESC')->get();
-        try {
-            $this->fpdf = new Fpdf('P', 'mm', 'A4');
-            $this->fpdf->AddPage();
-            $this->fpdf->SetFont('Arial', 'B', 12);
-
-            $this->fpdf->cell(150, 3, '', 0, 1, 'C');
-            $this->fpdf->cell(190, 10, strtoupper('REPUBLIQUE DEMOCRATIQUE DU CONGO'), 0, 1, 'C');
-            $this->fpdf->SetFont('Arial', 'B', 20);
-            $this->fpdf->cell(190, 1, "", 1, 1, 'C', true);
-            $this->fpdf->SetFont('Arial', 'B', 12);
-
-            $this->fpdf->cell(190, 10, 'AGENTS EN CONGE : ', 0, 1, 'C');
-
-            $this->fpdf->Ln(1);
-            $this->fpdf->SetFont('Arial', 'B', 10);
-            $this->fpdf->cell(30, 6, "Noms", 1, 0, 'L');
-            $this->fpdf->cell(120, 6, "Motif", 1, 0, 'L');
-            $this->fpdf->cell(20, 6, "date debut", 1, 0, 'L');
-            $this->fpdf->cell(20, 6, "date de fin", 1, 0, 'L');
-            $this->fpdf->Ln(6);
-            $this->fpdf->SetFont('Arial', '', 8);
-
-            foreach ($data as $_d) {
-                $this->fpdf->Cell(30, 6, $_d->employee->name ?? '-', 1, 0, 'L');
-                $this->fpdf->Cell(120, 6, $_d->reason ?? '0', 1, 0, 'L');
-                $this->fpdf->Cell(20, 6, $_d->start_date ?? 0, 1, 0, 'L');
-                $this->fpdf->Cell(20, 6, $_d->end_date ?? 0, 1, 0, 'L');
-                $this->fpdf->Ln(6);
-            }
-            $this->fpdf->Output();
-            exit;
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-    public function demandeConges()
-    {
-        $data = LeaveRequest::with('employee')->orderBy('created_at', 'DESC')->get();
-        try {
-            $this->fpdf = new Fpdf('P', 'mm', 'A4');
-            $this->fpdf->AddPage();
-            $this->fpdf->SetFont('Arial', 'B', 12);
-
-            $this->fpdf->cell(150, 3, '', 0, 1, 'C');
-            $this->fpdf->cell(190, 10, strtoupper('REPUBLIQUE DEMOCRATIQUE DU CONGO'), 0, 1, 'C');
-            $this->fpdf->SetFont('Arial', 'B', 20);
-            $this->fpdf->cell(190, 1, "", 1, 1, 'C', true);
-            $this->fpdf->SetFont('Arial', 'B', 12);
-
-            $this->fpdf->cell(190, 10, 'RAPPORT DE PRESENCE DES AGENTS: ', 0, 1, 'C');
-
-            $this->fpdf->Ln(1);
-            $this->fpdf->SetFont('Arial', 'B', 10);
-            $this->fpdf->cell(30, 6, "Noms", 1, 0, 'L');
-            $this->fpdf->cell(120, 6, "Motif", 1, 0, 'L');
-            $this->fpdf->cell(20, 6, "date debut", 1, 0, 'L');
-            $this->fpdf->cell(20, 6, "date de fin", 1, 0, 'L');
-            $this->fpdf->Ln(6);
-            $this->fpdf->SetFont('Arial', '', 8);
-
-            foreach ($data as $_d) {
-                $this->fpdf->Cell(30, 6, $_d->employee->name ?? '-', 1, 0, 'L');
-                $this->fpdf->Cell(120, 6, $_d->reason ?? '0', 1, 0, 'L');
-                $this->fpdf->Cell(20, 6, $_d->start_date ?? 0, 1, 0, 'L');
-                $this->fpdf->Cell(20, 6, $_d->end_date ?? 0, 1, 0, 'L');
+                $this->fpdf->Cell(60, 6, $_d->user->name ?? '-', 1, 0, 'L');
+                $this->fpdf->Cell(60, 6, $_d->lieuAffectation->lieu, 1, 0, 'L');
+                $this->fpdf->Cell(30, 6, date("d-m-Y", strtotime($_d->created_at)), 1, 0, 'L');
                 $this->fpdf->Ln(6);
             }
             $this->fpdf->Output();

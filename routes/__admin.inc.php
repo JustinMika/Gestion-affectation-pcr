@@ -34,16 +34,17 @@ Route::get('/', function () {
 
     return view('admin.index', [
         'patient' => 0,
-        'present_to_day' => count(\App\Models\Affectation::where('created_at', '=', date("Y-m-d"))->get()),
+        'present_to_day' => count(\App\Models\Affectation::whereDate('created_at', '=', now()->toDateString())->get()),
         'user' => count(\App\Models\User::get()),
-        'conges' => count([]),
-        'conges_' => count([]),
+        'conges' => count(\App\Models\LieuAffectation::all()),
+        'conges_' => count(\App\Models\Affectation::whereDate('created_at', '=', now()->toDateString())->get()),
         'patientsPerMonth' => $patientsPerMonth
     ]);
 })->name('Cr9ka3q4Ho16X1E6Z0EDmlHQVuCY');
 Route::get('home', function () {
     return view('admin.index');
 });
+
 Route::get('administration/access', function () {
     return view('admin.access');
 });
@@ -59,6 +60,8 @@ Route::get('administration/users', function () {
 Route::get('administration/gestion-users', function () {
     return view('admin.gestion-users');
 });
+
+
 Route::get('agents/voir_presence', function () {
     return view('admin.agents.voir_presence');
 });
@@ -69,10 +72,17 @@ Route::get('agents/demages-conges-agents', function () {
 /**
  * Rapports
  */
-Route::get('rapport/list_agents', [\App\Http\Controllers\RapportAdmin::class, 'listAgents'])->name('rapport.list_agents');
-Route::get('rapport/rapport_presence', [\App\Http\Controllers\RapportAdmin::class, 'rapportPresence'])->name('rapport.rapport_presence');
-Route::get('rapport/agent_en_conges', [\App\Http\Controllers\RapportAdmin::class, 'agentEnConges'])->name('rapport.agent_en_conges');
-Route::get('rapport/demande_conges', [\App\Http\Controllers\RapportAdmin::class, 'demandeConges'])->name('rapport.demande_conges');
+Route::get('rapport/list_agents_prcs', [\App\Http\Controllers\RapportAdmin::class, 'listAgents'])->name('rapport.list_agents_prcs');
+Route::get('rapport/affectations', [\App\Http\Controllers\RapportAdmin::class, 'affectations'])->name('rapport.affectations');
+
+/**
+ * Affectations
+ */
+Route::get('lieu-affectation/add', [\App\Http\Controllers\LieuAffectationsController::class, 'addAffectations']);
+Route::get('lieu-affectation/list', [\App\Http\Controllers\LieuAffectationsController::class, 'listLieuAffectations']);
+
+Route::get('lieu-affectation/affecter-agents', [\App\Http\Controllers\LieuAffectationsController::class, 'affectaterAgent'])->name('affectations.affecter-agents');
+Route::get('lieu-affectation/list-agents-affectation', [\App\Http\Controllers\LieuAffectationsController::class, 'listAgentAffectations'])->name('affectations.list-affectations');
 
 /**
  * ---------------------------------------------------------------------------------------------

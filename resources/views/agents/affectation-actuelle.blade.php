@@ -22,8 +22,9 @@
                     @if (count($affectation ?? []) > 0)
                         @foreach ($affectation as $c)
                             <tr class="border-b dark:border-gray-700 hover:bg-gray-100/10">
-                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ $c->reason }}</td>
-                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ date('d-m-Y', strtotime($c->created))  }}</td>
+                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">1</td>
+                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ $c->lieuAffectation->lieu }}</td>
+                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ date('d-m-Y', strtotime($c->created_at)) }}</td>
                             </tr>
                         @endforeach
                     @else

@@ -31,7 +31,7 @@
                         @foreach ($list_affectation as $c)
                             <tr class="border-b dark:border-gray-700 hover:bg-gray-100/10">
                                 <th class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ $i }}</th>
-                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ $c->reason }}</td>
+                                <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ $c->lieuAffectation->lieu }}</td>
                                 <td class="px-4 py-3 font-medium text-gray-900 whitespace- dark:text-white">{{ date("d-m-Y", strtotime($c->created_at)) }}</td>
                             </tr>
                             @php
